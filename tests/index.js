@@ -329,6 +329,25 @@ describe('broccoli-funnel', function(){
         });
     });
 
+it('linkRoots failure', function() {
+  var inputPath = FIXTURE_INPUT + '/dir1';
+  var node = new Funnel(inputPath, {
+    srcDir: 'subdir3',
+    destDir: 'subdir3'
+  });
+
+  var node2 = new Funnel(node, {
+    srcDir: 'subdir3',
+    destDir: 'subdir3'
+  });
+
+  builder = new broccoli.Builder(node2);
+  return builder.build()
+    .then(function() {
+      return builder.build();
+    });
+});
+
     it('can properly handle the output path being a broken symlink', function() {
       var inputPath = FIXTURE_INPUT + '/dir1';
       var node = new Funnel(inputPath, {
