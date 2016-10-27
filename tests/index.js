@@ -327,6 +327,26 @@ describe('broccoli-funnel', function(){
         });
     });
 
+it('linkRoots failure', function() {
+  var inputPath = fixturePath + '/dir1';
+  var node = new Funnel(inputPath, {
+    srcDir: 'subdir3',
+    destDir: 'subdir3'
+  });
+
+  var node2 = new Funnel(node, {
+    srcDir: 'subdir3',
+    destDir: 'subdir3'
+  });
+
+  builder = new broccoli.Builder(node2);
+  return builder.build()
+    .then(function() {
+      return builder.build();
+    });
+});
+
+
     it('does not error with input node at a missing nested source', function() {
       var inputPath = fixturePath + '/dir1';
       var node = new Funnel(inputPath, {
